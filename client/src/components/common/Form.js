@@ -7,7 +7,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import MiniForm from "../common/miniForm";
 import Fab from "@material-ui/core/Fab";
-
+import axios from "axios";
 import AddIcon from "@material-ui/icons/Add";
 
 class FormDialog extends React.Component {
@@ -21,6 +21,13 @@ class FormDialog extends React.Component {
 
 	handleClose = () => {
 		this.setState({ open: false });
+	};
+
+	addQuestion = (data) => {
+		axios
+			.post("/api/putData", { id: "1", question: data })
+			.then((data) => console.log(data, "data"))
+			.catch((err) => console.log(err));
 	};
 
 	render() {
@@ -38,15 +45,12 @@ class FormDialog extends React.Component {
 					<DialogTitle id="draggable-dialog-title">Subscribe</DialogTitle>
 					<DialogContent>
 						<DialogContentText>
-                            <MiniForm />
+							<MiniForm
+								handleClose={this.handleClose}
+								addQuestion={this.addQuestion}
+							/>
 						</DialogContentText>
 					</DialogContent>
-
-					<DialogActions>
-						<Button onClick={this.handleClose} color="primary">
-							Add to List
-						</Button>
-					</DialogActions>
 				</Dialog>
 			</div>
 		);

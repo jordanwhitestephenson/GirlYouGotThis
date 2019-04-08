@@ -16,15 +16,6 @@ db.once("open", () => console.log("connected to the database"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.get("/api/customers", (req, res) => {
-	const customers = [
-		{ id: 1, firstName: "John", lastName: "Doe" },
-		{ id: 2, firstName: "Brad", lastName: "Traversy" },
-		{ id: 3, firstName: "Mary", lastName: "Swanson" }
-	];
-
-	res.json(customers);
-});
 router.get("/getData", (req, res) => {
 	Data.find((err, data) => {
 		if (err) return res.json({ success: false, error: err });
@@ -32,27 +23,27 @@ router.get("/getData", (req, res) => {
 	});
 });
 
-router.post("/updateData", (req, res) => {
-	console.log("RESPO", req.body);
-	const { id, update } = req.body;
-	Data.findOneAndUpdate(id, update, (err) => {
-		if (err) return res.json({ success: false, error: err });
-		return res.json({ success: true });
-	});
-});
+// router.post("/updateData", (req, res) => {
+// 	console.log("RESPO", req.body);
+// 	const { id, update } = req.body;
+// 	Data.findOneAndUpdate(id, update, (err) => {
+// 		if (err) return res.json({ success: false, error: err });
+// 		return res.json({ success: true });
+// 	});
+// });
 
 router.post("/putData", (req, res) => {
 	let data = new Data();
 
-	const { id, message } = req.body;
+	const { id, question } = req.body;
 
-	if ((!id && id !== 0) || !message) {
+	if ((!id && id !== 0) || !question) {
 		return res.json({
 			success: false,
 			error: "INVALID INPUTS"
 		});
 	}
-	data.message = message;
+	data.question = question;
 	data.id = id;
 	data.save((err) => {
 		if (err) return res.json({ success: false, error: err });

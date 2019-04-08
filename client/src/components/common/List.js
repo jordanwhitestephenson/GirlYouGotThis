@@ -36,7 +36,7 @@ function QuestionList(props) {
 									component="span"
 									className={classes.inline}
 									color="textPrimary">
-									{data.message}
+									{data.question}
 								</Typography>
 								{" — I'll be in your neighborhood doing errands this…"}
 							</React.Fragment>

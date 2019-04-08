@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
+import DropDown from '../common/Dropdown'
+import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 const styles = (theme) => ({
 	container: {
@@ -38,6 +40,25 @@ class MiniForm extends React.Component {
 			[name]: event.target.value
 		});
 	};
+	addType = (value) => {
+		this.setState({
+			field: value
+		})
+	}
+	handleClose = () => {
+		let dataObject = {
+			field: this.state.field,
+			question: this.state.question,
+			answer: this.state.answer,
+			topic: this.state.topic,
+			resource: this.state.resource,
+			comfortLevel: this.state.comfortLevel,
+			importanceLevel: this.state.importanceLevel
+		};
+		this.props.addQuestion(dataObject);
+		this.props.handleClose();
+	};
+
 	render() {
 		const { classes } = this.props;
 		let labels = [
@@ -49,25 +70,31 @@ class MiniForm extends React.Component {
 			"comfortLevel",
 			"importanceLevel"
 		];
+
 		return (
 			<form className={classes.container} noValidate autoComplete="off">
 				{labels.map((label, index) =>
-                    labels.indexOf("comfortLevel") == index || labels.indexOf("importanceLevel") == index ? (
-							<TextField
-								id="outlined-full-width"
-								label={label}
-								style={{ margin: 8 }}
-								fullWidth
-								type="number"
-								value={this.state[label]}
-								margin="normal"
-								variant="outlined"
-								InputLabelProps={{
-									shrink: true
-								}}
-								onChange={this.handleChange([label])}
-							/>
-					) : (
+					labels.indexOf("comfortLevel") == index ||
+					labels.indexOf("importanceLevel") == index ? (
+						<TextField
+							id="outlined-full-width"
+							label={label}
+							style={{ margin: 8 }}
+							fullWidth
+							type="number"
+							value={this.state[label]}
+							margin="normal"
+							variant="outlined"
+							InputLabelProps={{
+								shrink: true
+							}}
+							onChange={this.handleChange([label])}
+						/>
+						) : label === "field" ?
+					
+							<DropDown addType={this.addType}/>
+					
+						: (
 						<TextField
 							id="outlined-full-width"
 							label={label}
@@ -83,6 +110,9 @@ class MiniForm extends React.Component {
 						/>
 					)
 				)}
+				<Button onClick={this.handleClose} color="primary">
+					Add to List
+				</Button>
 			</form>
 		);
 	}

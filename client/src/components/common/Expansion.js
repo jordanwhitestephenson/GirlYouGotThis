@@ -6,7 +6,8 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Spinner from './Spinner'
+import Spinner from "./Spinner";
+import Dialog from "./Dialog";
 
 const styles = (theme) => ({
 	root: {
@@ -19,31 +20,49 @@ const styles = (theme) => ({
 });
 
 function Expansion(props) {
-    const { classes, dataState } = props;
-    if (dataState) {
-        return (
-            dataState.map(data => 
-                <div className={classes.root}>
-                    <ExpansionPanel>
-                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography className={classes.heading}>{data.message}</Typography>
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>
-                            <Typography>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                malesuada lacus ex, sit amet blandit leo lobortis eget.
-					</Typography>
-                        </ExpansionPanelDetails>
-                    </ExpansionPanel>
-                </div>
-                )
+	const { classes, dataState } = props;
 
-        );
-    }
-    else {
-        return <Spinner/>
-    }
 
+	if (dataState && dataState.length) {
+		const questionObject = dataState.map((data) => ({
+			question: data.question,x
+			id: data._id
+		}));
+
+		return questionObject.map((data) => (
+			<div  className={classes.root} key={data.id}>
+				<ExpansionPanel>
+					<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+						<Typography className={classes.heading}>
+							{data.question.field}
+						</Typography>
+					</ExpansionPanelSummary>
+					<ExpansionPanelDetails>
+						<Typography>
+							<Typography component="h2" variant="display3" gutterBottom>
+								{data.question.topic.toUpperCase()}
+							</Typography>
+							<Typography component="h6" variant="display1" gutterBottom>
+								Q: {data.question.question}
+							</Typography>
+							<h1 />
+							<h2>A : {data.question.answer}</h2>
+							<p> ComfortLevel :{data.question.comfortLevel} </p>
+							<p> Importance Level :{data.question.importanceLevel} </p>
+							<a href={data.question.resource}>{data.question.resource}</a>
+						</Typography>
+					
+					</ExpansionPanelDetails>
+					<Dialog questionID={data.id} data= {data.question} />
+				</ExpansionPanel>
+			
+	
+			</div>
+		));
+	} else {
+		// return <Spinner />;
+		return <Spinner />;
+	}
 }
 
 Expansion.propTypes = {
