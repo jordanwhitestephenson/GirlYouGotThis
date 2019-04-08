@@ -25,7 +25,7 @@ function Expansion(props) {
 
 	if (dataState && dataState.length) {
 		const questionObject = dataState.map((data) => ({
-			question: data.question,x
+			question: data.question,
 			id: data._id
 		}));
 
