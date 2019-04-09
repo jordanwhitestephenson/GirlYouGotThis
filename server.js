@@ -3,13 +3,14 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const Data = require("./data");
 var cors = require("cors");
+var Pusher = require("pusher");
 const app = express();
 const router = express.Router();
 const dbRoute =
 	"mongodb://smokinvapor14:smokinvapor14@ds115263.mlab.com:15263/gtm-support-db";
 
 mongoose.connect(dbRoute, { useNewUrlParser: true });
-app.use(cors());
+router.use(cors());
 let db = mongoose.connection;
 
 db.once("open", () => console.log("connected to the database"));
@@ -23,14 +24,31 @@ router.get("/getData", (req, res) => {
 	});
 });
 
-// router.post("/updateData", (req, res) => {
-// 	console.log("RESPO", req.body);
-// 	const { id, update } = req.body;
-// 	Data.findOneAndUpdate(id, update, (err) => {
-// 		if (err) return res.json({ success: false, error: err });
-// 		return res.json({ success: true });
-// 	});
-// });
+app.post("/update-editor", (req, res) => {
+	var pusher = new Pusher({
+		appId: "755905",
+		key: "433f1b5ac27fbc663135",
+		secret: "7d329a159d0e82596d11",
+		cluster: "us3",
+		encrypted: true
+	});
+	pusher.trigger("editor", "code-update", {
+		...req.body
+	});
+	res.status(200).send("OK");
+});
+
+router.delete("/deleteData", (req, res) => {
+	const { id } = req.body;
+	Data.findOneAndDelete(id, (err) => {
+		if (err) return res.json({ success: false });
+		// return res.json({ success: true, data: data });
+	});
+	Data.find((err, data) => {
+		if (err) return res.json({ success: false, error: err });
+		return res.json({ success: true, data: data });
+	});
+});
 
 router.post("/putData", (req, res) => {
 	let data = new Data();

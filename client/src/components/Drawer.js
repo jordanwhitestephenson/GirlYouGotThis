@@ -11,6 +11,9 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
+import Forum from "@material-ui/icons/Forum";
+import Star from "@material-ui/icons/Star";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 const styles = {
 	list: {
@@ -34,6 +37,9 @@ class TemporaryDrawer extends React.Component {
 			[side]: open
 		});
 	};
+	handleClick = () => {
+		console.log("clcicked!");
+	};
 
 	render() {
 		const { classes } = this.props;
@@ -41,7 +47,12 @@ class TemporaryDrawer extends React.Component {
 		const sideList = (
 			<div className={classes.list}>
 				<List>
-					{["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+					{[
+						"Javascript Concepts",
+						"Coding Excercises",
+						"Computer Science",
+						"React"
+					].map((text, index) => (
 						<ListItem button key={text}>
 							<ListItemIcon>
 								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -52,14 +63,30 @@ class TemporaryDrawer extends React.Component {
 				</List>
 				<Divider />
 				<List>
-					{["All mail", "Trash", "Spam"].map((text, index) => (
-						<ListItem button key={text}>
-							<ListItemIcon>
-								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-							</ListItemIcon>
-							<ListItemText primary={text} />
-						</ListItem>
-					))}
+					<ListItem button key={"Code"}>
+						<ListItemIcon>
+							<Link to="/code">
+								<Forum />
+								Code
+							</Link>
+						</ListItemIcon>
+					</ListItem>
+					<ListItem button key={"All Questions"}>
+						<ListItemIcon>
+							<Link to="/allquestions">
+								<Forum />
+								All Questions
+							</Link>
+						</ListItemIcon>
+					</ListItem>
+					<ListItem button key={"Dashboard"}>
+						<ListItemIcon>
+							<Link to="/">
+								<Star />
+								Dashboard
+							</Link>
+						</ListItemIcon>
+					</ListItem>
 				</List>
 			</div>
 		);
@@ -67,7 +94,12 @@ class TemporaryDrawer extends React.Component {
 		const fullList = (
 			<div className={classes.fullList}>
 				<List>
-					{["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+					{[
+						"Javascript Concepts",
+						"Coding Excercises",
+						"Computer Science",
+						"React"
+					].map((text, index) => (
 						<ListItem button key={text}>
 							<ListItemIcon>
 								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -78,7 +110,7 @@ class TemporaryDrawer extends React.Component {
 				</List>
 				<Divider />
 				<List>
-					{["All mail", "Trash", "Spam"].map((text, index) => (
+					{["All questions"].map((text, index) => (
 						<ListItem button key={text}>
 							<ListItemIcon>
 								{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}

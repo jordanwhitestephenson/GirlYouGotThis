@@ -3,7 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
+    "codemirror": "^5.45.0",
+    "pusher": "^2.2.0",
+    "pusher-js": "^4.4.0",
+    "pushid": "^1.0.0",
     "react": "^16.2.0",
+    "react-codemirror2": "^5.1.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.0.17"
   },

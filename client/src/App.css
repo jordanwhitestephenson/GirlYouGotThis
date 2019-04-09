@@ -23,6 +23,73 @@
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+.App-Code .playground {
+  position: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  max-width: 600px;
+  background-color: #3f51b5;
+}
+
+.App-Code .CodeMirror-lines  {
+  text-align: left
+}
+
+
+.App-Code .code-editor {
+  height: 33.33%;
+  overflow: hidden;
+  position: relative;
+}
+
+.App-Code .editor-header {
+  height: 30px;
+  content: attr(title);
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  font-size: 18px;
+  color: #fafafa;
+}
+
+.App-Code .react-codemirror2 {
+  max-height: calc(100% - 30px);
+  overflow: auto;
+}
+
+.App-Code .result {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 600px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.App .iframe {
+  width: 85%;
+  height: 60%;
+  background: lightgray;
 }

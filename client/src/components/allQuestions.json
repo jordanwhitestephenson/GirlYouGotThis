@@ -1,0 +1,8 @@
+{
+    "questions": [
+        {
+            "question": "*How do you make a function that averages the values in an array",
+            "tip": "You calculate an average by adding all the elements and then dividing by the number of elements.",
+        }
+    ]
+}
